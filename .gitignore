@@ -1,3 +1,4 @@
-# Don't track content of these folders
+# Don't track these files
 etc/ssl/nginx/*.crt
 etc/ssl/nginx/*.key
+.DS_Store
