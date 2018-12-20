@@ -28,7 +28,7 @@ etc/
 
 ## Build Docker container
 
- 1. Copy and paste your `nginx-repo.crt` and `nginx-repo.key` into `etx/ssl/nginx` directory first
+ 1. Copy and paste your `nginx-repo.crt` and `nginx-repo.key` into `etc/ssl/nginx` directory first
 
  2. Build an image from your Dockerfile:
     ```bash
