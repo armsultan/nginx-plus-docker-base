@@ -53,6 +53,6 @@ etc/
     ```
     
  5. To open logs
-   ```bash
-   sudo docker logs -f [CONTAINER ID]
-   ```
+    ```bash
+    sudo docker logs -f [CONTAINER ID]
+    ```
