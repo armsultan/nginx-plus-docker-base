@@ -13,7 +13,7 @@ etc/
     │   └── upstreams.conf..........Upstream configurations
     │   └── stub_status.conf .......NGINX Open Source basic status information available http://localhost/nginx_status only
     │   └── status_api.conf.........NGINX Plus Live Activity Monitoring available on port 8080
-    └── nginx.conf .................Main NGINX configuration file with global settings
+    ├── nginx.conf .................Main NGINX configuration file with global settings
     ├── includes/
     │   └── proxy_headers/
     │       └─── proxy_headers.conf .....Best practice headers to pass to backend proxied servers
