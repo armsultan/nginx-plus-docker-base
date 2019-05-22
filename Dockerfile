@@ -23,7 +23,7 @@ RUN wget http://nginx.org/keys/nginx_signing.key && apt-key add nginx_signing.ke
 RUN printf "deb https://plus-pkgs.nginx.com/ubuntu `lsb_release -cs` nginx-plus\n" | sudo tee /etc/apt/sources.list.d/nginx-plus.list
 RUN wget -P /etc/apt/apt.conf.d https://cs.nginx.com/static/files/90nginx
 RUN apt-get update
-RUN apt-get -y install nginx-plus
+RUN apt-get -y install --no-install-recommends nginx-plus
 
 ## Optional: Install NGINX Plus Modules from repo
 #RUN apt-get install -y nginx-plus-module-modsecurity
