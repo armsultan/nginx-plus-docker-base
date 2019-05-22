@@ -52,7 +52,7 @@ etc/
     docker ps # get Docker IDs of running containers
     sudo docker exec -i -t [CONTAINER ID] /bin/bash
     ```
-    
+   
  5. To open logs
     ```bash
     docker ps # get Docker IDs of running containers
