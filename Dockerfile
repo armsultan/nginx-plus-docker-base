@@ -31,7 +31,6 @@ RUN chmod 644 /etc/apk/cert* \
 # Optional: COPY over any of your SSL certs in /etc/ssl for HTTPS servers
 # e.g.
 COPY etc/ssl   /etc/ssl
-COPY etc/ssl   /etc/ssl
 
 # COPY /etc/nginx (Nginx configuration) directory
 COPY etc/nginx /etc/nginx
