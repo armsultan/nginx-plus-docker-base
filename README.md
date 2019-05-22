@@ -7,7 +7,7 @@ A NGINX Plus base dockerfile and configuration for testing
 ```
 etc/
 └── nginx/
-│   ├── conf.d/ **[ADD your HTTP/S configurations here]**
+│    ├── conf.d/ **ADD your HTTP/S configurations here**
 │    │   ├── default.conf ...........Default Virtual Server configuration with example rewrite rules (Delete if needed)
 │    │   └── dummy_servers.conf  ....Dummy loopback web servers reponds with plain/text
 │    │   └── upstreams.conf..........Upstream configurations
@@ -17,7 +17,7 @@ etc/
 │    ├── includes/
 │    │   └── proxy_headers/
 │    │       └─── proxy_headers.conf .....Best practice headers to pass to backend proxied servers
-│    └── stream.conf.d/ **[ADD your TCP and UDP Stream configurations here]**
+│    └── stream.conf.d/ **ADD your TCP and UDP Stream configurations here**
 └── ssl/
     └── nginx/
     │   ├── nginx-repo.crt...........NGINX Plus repository certificate file (**Use your own license here**)
