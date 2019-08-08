@@ -41,52 +41,18 @@ pipeline {
                     }
                 }
             }
-            // stage('Publish to prod') {
-            //     steps {
-            //         // sh 'scp -P 2222 appster-$BRANCH_NAME-$BUILD_NUMBER.tgz corgi@142.93.91.120:/home/corgi'
-            //         // sh "ssh -t corgi@142.93.91.120 -p 2222 'gunzip -c appster-$BRANCH_NAME-$BUILD_NUMBER.tgz | docker load'"
-            //         // sh 'scp -P 2222 appster-$BRANCH_NAME-$BUILD_NUMBER.tar corgi@142.93.91.120:/home/corgi'
-            //         // sh "ssh -t corgi@142.93.91.120 -p 2222 'docker load < appster-$BRANCH_NAME-$BUILD_NUMBER.tar'"
-            //         // sh "ssh -t corgi@142.93.91.120 -p 2222 'docker stop $(docker ps -aq)'"
-            //         //sh "ssh -t corgi@142.93.91.120 -p 2222 'docker run -d -p 80:80 -p 443:443 -p 8080:8080 $DOCKER_IMAGE_TAG'"
-            //         sh "ssh -t root@104.248.185.191 '/home/corgi/./update-nginx-config.sh'"
-
-            //     }
-            // }
-            // parallel {
-            //     stage('Unit tests') {
-            //         agent any
-            //         steps {
-            //             script {
-            //                 docker_image.inside("--entrypoint='/start.sh'") {
-            //                     sh 'cd /var/www/app && vendor/bin/phpunit --testsuite=Unittest'
-            //                 }
-            //             }
-            //         }
-            //     }
-            //     stage('Health check') {
-            //         agent any
-            //         steps {
-            //             script {
-            //                 docker_image.inside("--entrypoint='/start.sh'") {
-            //                     timeout(time: 1, unit: 'MINUTES') {
-            //                         retry(5) {
-            //                             sleep 5
-            //                             sh "curl -sS http://localhost/info | grep 'My API'"
-            //                         }
-            //                     }
-            //                 }
-            //             }
-            //         }
-            //     }
-            // }
+        // stage('Publish to prod') {
+        //     steps {
+        //         sh "ssh -t user@xxx.xxx.xxx.xxx.xxx '/home/user/./update-nginx-config.sh'"
+        //     }
+        // }
         // stage('Deploy NGINX to POC Server') {
         //     steps {
         //         sshagent(['NGINX_VM1_Pass']) {
-        //             sh "scp -r nginx/ root@192.168.20.40:~"
-        //             sh "ssh -tt -o StrictHostKeyChecking=no -l root 192.168.20.40 whoami"
-        //             sh "ssh -tt -o StrictHostKeyChecking=no -l root 192.168.20.40 'sudo cp -R ~/nginx/ /etc/'"
-        //             sh "ssh -tt -o StrictHostKeyChecking=no -l root 192.168.20.40 'sudo /usr/sbin/nginx -t && sudo nginx -s reload'"
+        //             sh "scp -r nginx/ user@xxx.xxx.xxx.xxx:~"
+        //             sh "ssh -tt -o StrictHostKeyChecking=no -l root xxx.xxx.xxx.xxx whoami"
+        //             sh "ssh -tt -o StrictHostKeyChecking=no -l root xxx.xxx.xxx.xxx 'sudo cp -R ~/nginx/ /etc/'"
+        //             sh "ssh -tt -o StrictHostKeyChecking=no -l root xxx.xxx.xxx.xxx 'sudo /usr/sbin/nginx -t && sudo nginx -s reload'"
         //         }
         //     }
         // }
