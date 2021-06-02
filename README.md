@@ -32,10 +32,15 @@ A NGINX Plus base dockerfile and configuration for testing
 │          │   ├── nginx-repo.crt........NGINX Plus repository certificate file (**Use your own license**)
 │          │   └── nginx-repo.key........NGINX Plus repository key file (**Use your own license**)
 |          ├── example.com/
-│          │    ├── example.com.crt...........Self-signed wildcard certifcate for testing (*.example.com)
-│          │    └── example.com.key...........Self-signed private key for testing
-│          ├── dhparam_2048.pem..........Diffie-Hellman parameters for testing (2048 bit)
-│          └── dhparam_4096.pem..........Diffie-Hellman parameters for testing (4096 bit)
+│          │    ├── example.com.crt......Self-signed wildcard certifcate for testing (*.example.com)
+│          │    └── example.com.key......Self-signed private key for testing
+|          └── dhparams/
+│               ├── 1024.................Diffie-Hellman parameters 1024 key size
+│               |      └── dhparam.pem..........Diffie-Hellman parameters file (1024 bit)
+│               ├── 2048.................Diffie-Hellman parameters 2048 key size
+│               |      └── dhparam.pem..........Diffie-Hellman parameters file (2048 bit)
+│               └── 4096.................Diffie-Hellman parameters 4096 key size
+│                    └── dhparam.pem..........Diffie-Hellman parameters file (4096 bit)
 ├── usr/
 │   └── share/
 │        └── nginx/
