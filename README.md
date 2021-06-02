@@ -11,10 +11,9 @@ A NGINX Plus base dockerfile and configuration for testing
 │    │    ├── conf.d/ # ADD your HTTP/S configurations here
 │    │    │   ├── www.example.com.conf......HTTP www.example.com Virtual Server configuration
 │    │    │   ├── www2.example.com.conf.....HTTPS www2.example.com Virtual Server configuration
-│    │    │   └── dummy_servers_text.conf...Dummy loopback web servers responds with plain/text
-│    │    │   └── dummy_servers_html.conf...Dummy loopback web servers responds with text/html
-│    │    │   └── upstreams.conf............Upstream configurations
-│    │    │   └── stub_status.conf .........NGINX Open Source basic status information available http://localhost/nginx_status only
+│    │    │   ├── dummy_servers_text.conf...Dummy loopback web servers responds with plain/text
+│    │    │   ├── dummy_servers_html.conf...Dummy loopback web servers responds with text/html
+│    │    │   ├── upstreams.conf............Upstream configurations
 │    │    │   └── status_api.conf...........NGINX Plus Live Activity Monitoring available on port 8080 - [Source](https://gist.github.com/nginx-gists/│a51 341a11ff1cf4e94ac359b67f1c4ae)
 │    │    ├── includes
 │    │    │    ├── add_headers
@@ -32,10 +31,11 @@ A NGINX Plus base dockerfile and configuration for testing
 │          ├── nginx/
 │          │   ├── nginx-repo.crt........NGINX Plus repository certificate file (**Use your own license**)
 │          │   └── nginx-repo.key........NGINX Plus repository key file (**Use your own license**)
+|          ├── example.com/
+│          │    ├── example.com.crt...........Self-signed wildcard certifcate for testing (*.example.com)
+│          │    └── example.com.key...........Self-signed private key for testing
 │          ├── dhparam_2048.pem..........Diffie-Hellman parameters for testing (2048 bit)
-│          ├── dhparam_4096.pem..........Diffie-Hellman parameters for testing (4096 bit)
-│          ├── example.com.crt...........Self-signed wildcard certifcate for testing (*.example.com)
-│          └── example.com.key...........Self-signed private key for testing
+│          └── dhparam_4096.pem..........Diffie-Hellman parameters for testing (4096 bit)
 ├── usr/
 │   └── share/
 │        └── nginx/
