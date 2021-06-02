@@ -56,6 +56,10 @@ A NGINX Plus base dockerfile and configuration for testing
 
 ## Build Docker container
 
+**Note:** The Dockerfile provided in this repo can be subsituted. Check out [my
+other repo](https://github.com/armsultan/nginx-plus-dockerfiles) for other NGINX
+Plus Dockerfiles
+
  1. Copy and paste your `nginx-repo.crt` and `nginx-repo.key` into `etc/ssl/nginx` directory
 
  2. Build an image from your Dockerfile:
