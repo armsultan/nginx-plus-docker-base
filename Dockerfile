@@ -6,7 +6,7 @@ LABEL maintainer="armand@f5.com"
 # Uncomment this block and the versioned nginxPackages in the main RUN
 # instruction to install a specific release
 # https://docs.nginx.com/nginx/releases/
-ENV NGINX_VERSION 23        
+ENV NGINX_VERSION 24        
 # https://nginx.org/en/docs/njs/changes.html
 ENV NJS_VERSION   0.5.2     
 # https://plus-pkgs.nginx.com
@@ -38,8 +38,8 @@ RUN set -x \
     # List available versions: 
     && apt-cache policy nginx-plus \
     ## Uncomment one:
-    # && DEBIAN_FRONTEND=noninteractive apt-get -qq -y install --no-install-recommends nginx-plus \
-    && DEBIAN_FRONTEND=noninteractive apt-get -qq -y install --no-install-recommends nginx-plus=${NGINX_VERSION}-${PKG_RELEASE} \
+    && DEBIAN_FRONTEND=noninteractive apt-get -qq -y install --no-install-recommends nginx-plus \
+    # && DEBIAN_FRONTEND=noninteractive apt-get -qq -y install --no-install-recommends nginx-plus=${NGINX_VERSION}-${PKG_RELEASE} \
     #
     ## Optional: Install NGINX Plus Dynamic Modules (3rd-party) from repo
     ## See https://www.nginx.com/products/nginx/modules
@@ -193,7 +193,7 @@ RUN chown -R nginx:nginx /etc/nginx \
  && ln -sf /dev/stdout /var/log/nginx/access.log \
  && ln -sf /dev/stderr /var/log/nginx/error.log \
  # **Remove the Nginx Plus cert/keys from the image**
- && rm /etc/apk/cert.pem /etc/apk/cert.key
+ && rm /etc/ssl/nginx/nginx-repo.crt /etc/ssl/nginx/nginx-repo.key
 
 # EXPOSE ports, HTTP 80, HTTPS 443 and, Nginx status page 8080
 EXPOSE 80 443 8080
