@@ -1,0 +1,78 @@
+version: '3.3'
+networks:
+    overlay:
+      ipam:
+        config:
+          - subnet: 172.20.0.0/24
+services:
+    # Snapt Aria ADCs
+    aria1:
+        networks:
+            - overlay
+        hostname: aria1
+        image: snaptadc/snapt:latest
+        ports:
+          - "80-100:80-100"
+          - "8080:8080"
+        stdin_open: true
+        tty: true
+      # restart: always #  - if you want persistent through host reboots
+    # TEST SERVERS 
+    # USING "Expose"  - Expose ports without publishing them to the
+    # host machine - they’ll only be accessible to linked services. Only the
+    # internal port can be specified.
+    #
+    # SNAPT HTML TEST SERVERS  
+    web-snapt:
+        networks:
+            - overlay
+        hostname: web-snapt
+        image: armsultan/test-page:snapt
+        expose:
+          - 80
+    # SIMPLE (UNBRANDED) HTML TEST SERVERS  
+    web-simple:
+        networks:
+            - overlay
+        hostname: web-simple
+        image: armsultan/test-page:html
+        expose:
+          - 80     
+    # PLAIN-TEXT TEST SERVERS
+    web-plain-text:
+        networks:
+            - overlay
+        hostname: web-plain-text
+        image: armsultan/test-page:plain-text
+        expose:
+          - 80
+    # JSON TEST SERVERS
+    web-json:
+        networks:
+            - overlay
+        hostname: web-json
+        image: armsultan/test-page:json
+        expose:
+          - 80
+    # HTML-BLUE TEST SERVERS
+    web-html-blue:
+        networks:
+            - overlay
+        hostname: web-html-blue
+        image: armsultan/test-page:blue
+        expose:
+          - 80
+    web-html-green:
+        networks:
+            - overlay
+        hostname: web-html-green
+        image: armsultan/test-page:green
+        expose:
+          - 80
+    web-html-planets:
+        networks:
+            - overlay
+        hostname: web-html-planets
+        image: armsultan/test-page:planets
+        expose:
+          - 80

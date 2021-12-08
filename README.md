@@ -1,92 +1,103 @@
-# Nginx Plus Base
+# Snapt Aria Sandbox
 
-A NGINX Plus base dockerfile and configuration for testing
+A Sandbox for testing [Snapt Aria](https://www.snapt.net/) 
 
-## File Structure
+See documentation for [Snapt Aria on Docker](https://docs.snapt.net/article/docker/)
 
-```
-/
-├── etc/
-│    ├── nginx/
-│    │    ├── conf.d/ # ADD your HTTP/S configurations here
-│    │    │   ├── www.example.com.conf......HTTP www.example.com Virtual Server configuration
-│    │    │   ├── www2.example.com.conf.....HTTPS www2.example.com Virtual Server configuration
-│    │    │   ├── dummy_servers_text.conf...Dummy loopback web servers responds with plain/text
-│    │    │   ├── dummy_servers_html.conf...Dummy loopback web servers responds with text/html
-│    │    │   ├── upstreams.conf............Upstream configurations
-│    │    │   └── status_api.conf...........NGINX Plus Live Activity Monitoring available on port 8080 - [Source](https://gist.github.com/nginx-gists/│a51 341a11ff1cf4e94ac359b67f1c4ae)
-│    │    ├── includes
-│    │    │    ├── add_headers
-│    │    │    │   └── security.conf_ ....................Recommended response headers for security
-│    │    │    ├── proxy_headers
-│    │    │    │   └── load_balancing_algorithms.conf.....Recommended request headers for security and performance
-│    │    │    └── ssl
-│    │    │        ├── ssl_intermediate.conf.....Recommended SSL configuration for General-purpose servers with a variety of clients, recommended for almost all systems
-│    │    │        ├── ssl_a+_strong.conf........Recommended SSL configuration for Based on SSL Labs A+ (https://www.ssllabs.com/ssltest/)
-│    │    │        ├── ssl_modern.conf...........Recommended SSL configuration for Modern clients: TLS 1.3 and don't need backward compatibility
-│    │    │        └── ssl_old.conf..............Recommended SSL configuration for compatiblity ith a number of very old clients, and should be used only as a last resort
-│    │    ├── stream.conf.d/ #ADD your TCP and UDP Stream configurations here
-│    │    └── nginx.conf ...............Main NGINX configuration file with global settings
-│    └── ssl/
-│          ├── nginx/
-│          │   ├── nginx-repo.crt........NGINX Plus repository certificate file (**Use your own license**)
-│          │   └── nginx-repo.key........NGINX Plus repository key file (**Use your own license**)
-|          ├── example.com/
-│          │    ├── example.com.crt......Self-signed wildcard certifcate for testing (*.example.com)
-│          │    └── example.com.key......Self-signed private key for testing
-|          └── dhparams/
-│               ├── 1024.................Diffie-Hellman parameters 1024 key size
-│               |      └── dhparam.pem..........Diffie-Hellman parameters file (1024 bit)
-│               ├── 2048.................Diffie-Hellman parameters 2048 key size
-│               |      └── dhparam.pem..........Diffie-Hellman parameters file (2048 bit)
-│               └── 4096.................Diffie-Hellman parameters 4096 key size
-│                    └── dhparam.pem..........Diffie-Hellman parameters file (4096 bit)
-├── usr/
-│   └── share/
-│        └── nginx/
-│              └── html/
-│                    └── demo-index.html...Demo HTML webpage with placeholder values
-└── var/
-     ├── cache/
-     │    └── nginx/ # Example NGINX cache path for storing cached content
-     └── lib/
-          └── nginx/
-               └── state/ # The recommended path for storing state files on Linux distributions
+### Start the Demo stack:
+
+Run `docker-compose` in the foreground so we can see real-time log output to the
+terminal:
+
+```bash
+$ docker-compose up -d
 ```
 
-## Build Docker container
+Or, if you made changes to any of the Docker containers or NGINX configurations,
+run:
 
-**Note:** The Dockerfile provided in this repo can be subsituted. Check out [my
-other repo](https://github.com/armsultan/nginx-plus-dockerfiles) for other NGINX
-Plus Dockerfiles
+```bash
+# Recreate containers and start demo
+$ docker-compose up --force-recreate -d
+```
 
- 1. Copy and paste your `nginx-repo.crt` and `nginx-repo.key` into `etc/ssl/nginx` directory
+**Confirm** the containers are running. You should see three containers running:
 
- 2. Build an image from your Dockerfile:
-    ```bash
-    # Run command from the folder containing the `Dockerfile`
-    $ docker build -t nginx-plus .
-    ```
- 3. Start the Nginx Plus container, e.g.:
-    ```bash
-    # Start a new container and publish container ports 80, 443 and 8080 to the host
-    $ docker run -d -p 80:80 -p 443:443 -p 8080:8080 nginx-plus
-    ```
+```
+$ docker ps
 
-    **To mount local volume:**
+CONTAINER ID   IMAGE                            COMMAND                  CREATED          STATUS         PORTS                                                                                                     NAMES
+90c5b8c1388a   snaptadc/snapt:latest            "/bin/sh -c './usr/l…"   6 seconds ago    Up 4 seconds   0.0.0.0:80-100->80-100/tcp, :::80-100->80-100/tcp, 0.0.0.0:8080->8080/tcp, :::8080->8080/tcp, 29987/tcp   snapt-aria-demo-base_aria1_1
+2d1b8fee4d35   armsultan/test-page:html         "/docker-entrypoint.…"   35 seconds ago   Up 5 seconds   80/tcp                                                                                                    snapt-aria-demo-base_web-simple_1
+f15c205b0fd7   armsultan/test-page:plain-text   "/docker-entrypoint.…"   35 seconds ago   Up 5 seconds   80/tcp                                                                                                    snapt-aria-demo-base_web-plain-text_1
+4b84944ca99c   armsultan/test-page:snapt        "/docker-entrypoint.…"   35 seconds ago   Up 5 seconds   80/tcp                                                                                                    snapt-aria-demo-base_web-snapt_1
+df1ef4ed2aaf   armsultan/test-page:json         "/docker-entrypoint.…"   35 seconds ago   Up 5 seconds   80/tcp                                                                                                    snapt-aria-demo-base_web-json_1
+4178135fbe09   armsultan/test-page:green        "/docker-entrypoint.…"   35 seconds ago   Up 5 seconds   80/tcp                                                                                                    snapt-aria-demo-base_web-html-green_1
+d44e087c3ed7   armsultan/test-page:planets      "/docker-entrypoint.…"   35 seconds ago   Up 5 seconds   80/tcp                                                                                                    snapt-aria-demo-base_web-html-planets_1
+d106e8e1a785   armsultan/test-page:blue         "/docker-entrypoint.…"   35 seconds ago   Up 5 seconds   80/tcp                                                                                                    snapt-aria-demo-base_web-html-blue_1
+```
 
-    ```bash
-    docker run -d -p 80:80 -p 443:443 -p 8080:8080 -v $PWD/etc/nginx:/etc/nginx nginx-plus
-    ```
+### Configure Snapt Aria
 
- 4. To run commands in the docker container you first need to start a bash session inside the nginx container
-    ```bash
-    docker ps # get Docker IDs of running containers
-    sudo docker exec -i -t [CONTAINER ID] /bin/sh
-    ```
+Open `http://localhost:8080/` and login using the registered username and passed
+registed on https://shop.snapt.net. All communication is encrypted.
 
- 5. To open logs
-    ```bash
-    docker ps # get Docker IDs of running containers
-    sudo docker logs -f [CONTAINER ID]
-    ```
+
+### Demo Environment Topology
+
+```
+                                                ┌──────────────┐
+                                                │              ├─┐
+                                      ┌─────────► web-snapt   │ │
+                                      │         │              │ │
+                                      │         └─┬────────────┘ │
+                                      │ . . . . ►└──────────────┘ x x x
+                                      │
+                                      │
+                                      │         ┌──────────────┐
+                                      │         │              ├─┐
+                                      ├─────────► web-planets │ │
+                                      │         │              │ │
+                                      │         └─┬────────────┘ │
+                                      │ . . . . ►└──────────────┘ x x x
+                                      │
+                                      │
+                                      │         ┌────────────────┐
+                                      │         │                ├─┐
+                                      ├─────────►web-plain-text │ │
+                                      │         │                │ │
+                                      │         └─┬──────────────┘ │
+                                      │ . . . . ►└────────────────┘ x x x
+                                      │
+ ┌──────────────────────────┐         │
+ │                          │         │         ┌──────────────┐
+ │                          │         │         │              ├─┐
+ │   SNAPT ARIA ADC         |─────────├─────────► web-json    │ │
+ │                          │         │         │              │ │
+ │                          │         │         └─┬────────────┘ │
+ └──────────────────────────┘         │ . . . . ►└──────────────┘ x x x
+                                      │
+                                      │
+                                      │         ┌──────────────┐
+                                      │         │              ├─┐
+                                      ├─────────► web-html    │ │
+                                      │         │              │ │
+                                      │         └─┬────────────┘ │
+                                      │ . . . . ►└──────────────┘ x x x
+                                      │
+                                      │
+                                      │         ┌──────────────┐
+                                      │         │              ├─┐
+                                      ├─────────► web-blue    │ │
+                                      │         │              │ │ 
+                                      │         └─┬────────────┘ │
+                                      │ . . . . ►└──────────────┘ x x x
+                                      │
+                                      │
+                                      │         ┌──────────────┐
+                                      │         │              ├─┐
+                                      ├─────────► web-green   │ │
+                                      │         │              │ │ 
+                                      │         └─┬────────────┘ │
+                                      └ . . . . ►└──────────────┘ x x x
+```
